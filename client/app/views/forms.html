@@ -1,0 +1,9 @@
+<div class="row">
+	<div class="col-md-12">
+		<table class="table">
+			<tr ng-repeat="f in forms">
+				<td><a ui-sref="formsedit({formId: '{{f.id}}'})">{{f.title}}</a></td>
+			</tr>
+		</table>
+	</div>
+</div>

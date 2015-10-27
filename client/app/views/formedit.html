@@ -1,0 +1,27 @@
+<div class="row">
+	<div class="col-md-8 col-md-offset-2">
+
+		<div ng-hide="isEditMode">
+			<h3>{{form.title}}</h3>
+			<div>{{form.body}}</div>
+			<button ng-click="edit()" class="btn">Edit</button>
+		</div>
+
+		<form ng-show="isEditMode">
+			<div class="form-group">
+				<label>Title</label>
+				<input ng-model="title" class="form-control" />
+			</div>
+			<div>
+				<label>Body</label>
+				<textarea rows="10" ng-model="body" class="form-control"></textarea>
+			</div>
+			<div style="margin-top: 30px;">
+				<button ng-click="save()" class="btn btn-success">Save</button>
+				<button ng-click="cancel()" ng-show="form.id" class="btn">Cancel</button>
+				<button ng-click="delete()" ng-show="form.id" class="btn btn-danger">Cancel</button>
+			</div>
+		</form>
+
+	</div>
+</div>

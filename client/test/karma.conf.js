@@ -32,6 +32,8 @@ module.exports = function(config) {
       'bower_components/ngToast/dist/ngToast.js',
       'bower_components/satellizer/satellizer.js',
       'bower_components/angular-permission/dist/angular-permission.js',
+      'bower_components/moment/moment.js',
+      'bower_components/angular-moment/angular-moment.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

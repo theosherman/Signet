@@ -1,12 +1,13 @@
 'use strict';
 
-angular.module('app').controller('FormEditCtrl', function ($scope, $state, $stateParams, $http, ngToast) {
-
-	if ($stateParams.formId === 'new') {
+angular.module('app').controller('FormDetailCtrl', function ($scope, $state, $stateParams, $http, ngToast) {
+	$scope.form = {};
+	
+	if ($stateParams.id === 'new') {
 		$scope.isEditMode = true;
 	} else {
 		$scope.isEditMode = false;
-		$http.get('/api/forms/' + $stateParams.formId).success(function (form) {
+		$http.get('/api/forms/' + $stateParams.id).success(function (form) {
 				$scope.form = form;
 			}).error(function (err) {
 				ngToast.danger('Unable to load form...<br/>' + err.message);
@@ -26,8 +27,9 @@ angular.module('app').controller('FormEditCtrl', function ($scope, $state, $stat
 	};
 
 	$scope.delete = function () {
-		$http.delete('/api/forms/' + $stateParams.formId).success(function() {
-			$state.go('formslist');
+		$http.delete('/api/forms/' + $stateParams.id).success(function() {
+			$state.go('forms');
+			$scope.refreshForms();
 			ngToast.success('Deleted!');
 		}).error(function(err) {
 			ngToast.danger('Unable to delete form...<br/>' + err.message);
@@ -55,6 +57,7 @@ angular.module('app').controller('FormEditCtrl', function ($scope, $state, $stat
 		$scope.isEditMode = false;
 		$scope.title = '';
 		$scope.body = '';
+		$scope.refreshForms();
 		ngToast.success('Form saved!');
 	}
 

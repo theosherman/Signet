@@ -9,8 +9,9 @@ var bodyParser = require('body-parser');
 var config = require('./config');
 
 var auth = require('./routes/auth');
-var clients = require('.routes/clients');
+var clients = require('./routes/clients');
 var forms = require('./routes/forms');
+var signatures = require('./routes/signatures');
 
 var app = express();
 
@@ -28,6 +29,7 @@ app.use(bodyParser.json());
 app.use('/api/auth', auth);
 app.use('/api/clients', clients);
 app.use('/api/forms', forms);
+app.use('/api/signatures', signatures);
 app.use(function(req, res, next) {
 	res.status(404).end();
 });

@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Starter Template</title>
+    <title>Signet</title>
     <meta name="description" content="App">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -35,13 +35,15 @@
               <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" ui-sref="home">Starter Template</a>
+            <a class="navbar-brand" ui-sref="home">Signet</a>
           </div>
 
           <div class="collapse navbar-collapse" collapse="navCollapsed">
 
             <ul ng-if="isAuthenticated()" class="nav navbar-nav">
-              <li ui-sref-active="active"><a ui-sref="formslist">Forms</a></li>
+              <li ui-sref-active="active"><a ui-sref="clients">Clients</a></li>
+              <li ui-sref-active="active"><a ui-sref="forms">Forms</a></li>
+              <li ui-sref-active="active"><a ui-sref="signatures">Signatures</a></li>
             </ul>
             
             <ul ng-if="!isAuthenticated()" class="nav navbar-nav navbar-right">
@@ -55,18 +57,19 @@
                   </ul>
               </li>
             </ul>
+            
           </div>
         </div>
       </div>
     </div>
 
     <div class="container">
-      <div ui-view=""></div>
+      <div ui-view></div>
     </div>
 
     <div class="footer">
       <div class="container">
-        <p>&copy; Temporary Company Name</p>
+        <p>&copy; Signet</p>
       </div>
     </div>
 
@@ -91,17 +94,24 @@
     <script src="bower_components/ngToast/dist/ngToast.js"></script>
     <script src="bower_components/satellizer/satellizer.js"></script>
     <script src="bower_components/angular-permission/dist/angular-permission.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/angular-moment/angular-moment.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     
       <!-- build:js({.tmp,app}) scripts/scripts.js -->
       <script src="scripts/app.js"></script>
+      <script src="scripts/clientStates.js"></script>
+      <script src="scripts/signatureStates.js"></script>
+      <script src="scripts/formStates.js"></script>
       <script src="scripts/controllers/navbar.js"></script>
       <script src="scripts/controllers/home.js"></script>
       <script src="scripts/controllers/forms.js"></script>
-      <script src="scripts/controllers/formedit.js"></script>
-      <script src="scripts/controllers/admin.js"></script>
-      <script src="scripts/controllers/profile.js"></script>
+      <script src="scripts/controllers/formDetail.js"></script>
+      <script src="scripts/controllers/clients.js"></script>
+      <script src="scripts/controllers/clientDetail.js"></script>
+      <script src="scripts/controllers/signatures.js"></script>
+      <script src="scripts/controllers/signatureDetail.js"></script>
       <script src="scripts/controllers/login.js"></script>
       <script src="scripts/controllers/logout.js"></script>
       <!-- endbuild -->

@@ -21,7 +21,6 @@ body {
 .header {
   margin-bottom: 10px;
 }
-/* Make the masthead heading the same height as the navigation */
 .header h3 {
   margin-top: 0;
   margin-bottom: 0;
@@ -29,7 +28,6 @@ body {
   padding-bottom: 19px;
 }
 
-/* Custom page footer */
 .footer {
   padding-top: 19px;
   color: #777;
@@ -39,7 +37,6 @@ body {
   margin: 30px 0;
 }
 
-/* Main marketing message and sign up button */
 .jumbotron {
   text-align: center;
 }
@@ -48,13 +45,18 @@ body {
   padding: 14px 24px;
 }
 
-/* Supporting marketing content */
 .marketing {
   margin: 40px 0;
 }
 .marketing p + h4 {
   margin-top: 28px;
 }
-.btn {
-  margin: 10px 0;
+.space {
+  margin: 10px 10px 10px 0;
+}
+
+canvas {
+  border-style: solid;
+  border-color: #EEE;
+  border-width: 1px;
 }

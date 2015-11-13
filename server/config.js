@@ -11,7 +11,7 @@ config.express = {
 config.secret = process.env.SECRET || 'secret';
 
 config.rethinkdb = {
-	host: process.env.RETHINK_HOST || '192.168.0.4',
+	host: process.env.RETHINK_HOST || '192.168.0.120',
 	port: process.env.RETHINK_PORT || '28015',
 	db: 'Signet' + (config.environment === 'development' ? 'Dev' : 'Prd')
 };

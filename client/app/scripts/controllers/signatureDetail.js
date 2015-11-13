@@ -2,68 +2,85 @@
 
 angular.module('app').controller('signatureDetailCtrl', function ($scope, $state, $stateParams, $http, ngToast) {
 
+	$scope.clients = [];
+	$scope.forms = [];
 	$scope.signature = {};
+	
+	$scope.hideClients = true;
+	$scope.hideForms = true;
 
 	if ($stateParams.id === 'new') {
-		$scope.isEditMode = true;
+		$scope.hideClients = false;
+		$scope.hideForms = false;
+		$http.get('/api/clients').success(function (clients) {
+			$scope.clients = clients;
+		}).error(function (err) {
+			ngToast.danger('Unable to load clients...<br/>' + err.message);
+		});
+		$http.get('/api/forms').success(function (forms) {
+			$scope.forms = forms;
+		}).error(function (err) {
+			ngToast.danger('Unable to load forms...<br/>' + err.message);
+		});
 	} else {
-		$scope.isEditMode = false;
+		$scope.id = $stateParams.id;
 		$http.get('/api/signatures/' + $stateParams.id).success(function (signature) {
-				$scope.signature = signature;
-			}).error(function (err) {
-				ngToast.danger('Unable to load signature...<br/>' + err.message);
-			})
+			$scope.signature = signature;
+		}).error(function (err) {
+			ngToast.danger('Unable to load signature...<br/>' + err.message);
+		});
 	}
 
-	$scope.edit = function () {
-		$scope.name = $scope.signature.name;
-		$scope.email = $scope.signature.email;
-		$scope.isEditMode = true;
+	$scope.selectClient = function (client) {
+		$scope.selectedClient = client;
+		$scope.signature.clientId = client.id;
+		$scope.signature.name = client.name;
+		$scope.hideClients = true;
 	};
 
-	$scope.cancel = function () {
-		$scope.isEditMode = false;
-		$scope.name = '';
-		$scope.email = '';
+	$scope.selectForm = function (form) {
+		$scope.selectedForm = form;
+		$scope.signature.formId = form.id;
+		$scope.signature.title = form.title;
+		$scope.hideForms = true;
 	};
+	
+	$scope.isPersisted = function () {
+		return $scope.signature.id !== undefined;
+	};
+	
+	$scope.isPersistedOrSelectionComplete = function () {
+		return ($scope.selectedClient !== undefined && $scope.selectedForm !== undefined) || $scope.signature.id !== undefined;
+	};
+	
+	$scope.save = function () {
+		var signature = {
+			clientId: $scope.selectedClient.id,
+			formId: $scope.selectedForm.id
+		};
 
+		$http.post('/api/signatures', signature).success(function (signature) {
+			$scope.signature = signature;
+			$scope.refreshSignatures();
+			$state.go('signatures');
+			ngToast.success('Saved signature!');
+		}).error(function (err) {
+			ngToast.danger('Unable to save signature...<br/>' + err.message);
+		});
+	};
+	
 	$scope.delete = function () {
-		$http.delete('/api/signatures/' + $stateParams.id).success(function() {
+		$http.delete('/api/signatures/' + $stateParams.id).success(function () {
 			$state.go('signatures');
 			$scope.refreshSignatures();
 			ngToast.success('Deleted!');
-		}).error(function(err) {
+		}).error(function (err) {
 			ngToast.danger('Unable to delete signature...<br/>' + err.message);
 		})
-		
-	}
-
-	$scope.save = function () {
-		$scope.signature.name = $scope.name;
-		$scope.signature.email = $scope.email;
-
-		if ($scope.signature.id) {
-			$http.put('/api/signatures', $scope.signature)
-				.success(saveSuccess)
-				.error(saveError);
-		} else {
-			$http.post('/api/signatures', $scope.signature)
-				.success(saveSuccess)
-				.error(saveError);
-		}
 	};
-
-	function saveSuccess(signature) {
-		$scope.signature = signature;
-		$scope.isEditMode = false;
-		$scope.name = '';
-		$scope.email = '';
-		$scope.refreshSignatures();
-		ngToast.success('Signature saved!');
-	}
-
-	function saveError(err) {
-		ngToast.danger('Error saving signature...<br/>' + err.message);
-	}
-
+	
+	$scope.notify = function () {
+		console.log('Notify!');	
+	};
+	
 });

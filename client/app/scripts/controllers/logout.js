@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('app').controller('LogoutCtrl', function($state, $auth, ngToast) {
 	if (!$auth.isAuthenticated())
 		return;

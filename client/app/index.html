@@ -40,16 +40,17 @@
 
           <div class="collapse navbar-collapse" collapse="navCollapsed">
 
-            <ul ng-if="isAuthenticated()" class="nav navbar-nav">
+            <ul ng-show="isAuthenticated()" class="nav navbar-nav">
               <li ui-sref-active="active"><a ui-sref="clients">Clients</a></li>
               <li ui-sref-active="active"><a ui-sref="forms">Forms</a></li>
               <li ui-sref-active="active"><a ui-sref="signatures">Signatures</a></li>
+              <li><a href>state: {{state()}}</a></li>
             </ul>
             
-            <ul ng-if="!isAuthenticated()" class="nav navbar-nav navbar-right">
+            <ul ng-show="!isAuthenticated() && showLogin()" class="nav navbar-nav navbar-right">
               <li ui-sref-active="active"><a ui-sref="login">Login</a></li>
             </ul>
-            <ul ng-if="isAuthenticated()" class="nav navbar-nav navbar-right">
+            <ul ng-show="isAuthenticated() && showLogin()" class="nav navbar-nav navbar-right">
               <li dropdown>
                   <a href="#" dropdown-toggle>{{getName()}} <b class="caret"></b></a>
                   <ul class="dropdown-menu">
@@ -95,7 +96,7 @@
     <script src="bower_components/satellizer/satellizer.js"></script>
     <script src="bower_components/angular-permission/dist/angular-permission.js"></script>
     <script src="bower_components/moment/moment.js"></script>
-    <script src="bower_components/angular-moment/angular-moment.js"></script>
+    <script src="bower_components/signature_pad/signature_pad.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     
@@ -110,10 +111,12 @@
       <script src="scripts/controllers/formDetail.js"></script>
       <script src="scripts/controllers/clients.js"></script>
       <script src="scripts/controllers/clientDetail.js"></script>
+      <script src="scripts/controllers/sign.js"></script>
       <script src="scripts/controllers/signatures.js"></script>
       <script src="scripts/controllers/signatureDetail.js"></script>
       <script src="scripts/controllers/login.js"></script>
       <script src="scripts/controllers/logout.js"></script>
+      <script src="scripts/directives/signaturePad.js"></script>
       <!-- endbuild -->
     
 </body>

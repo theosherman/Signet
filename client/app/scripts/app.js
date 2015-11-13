@@ -43,6 +43,11 @@ app.config(function ($stateProvider, $urlRouterProvider, $authProvider, ngToastP
       template: null,
       controller: 'LogoutCtrl',
       data: denyAnonymous
+    })
+    .state('sign', {
+      url: '/sign/:id',
+      templateUrl: 'views/sign.html',
+      controller: 'signCtrl'
     });
 
   $authProvider.httpInterceptor = true;

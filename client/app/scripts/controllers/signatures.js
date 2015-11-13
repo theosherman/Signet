@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('app').controller('signaturesCtrl', function ($scope, $http) {
 	$scope.signatures = [];
 
@@ -9,6 +11,24 @@ angular.module('app').controller('signaturesCtrl', function ($scope, $http) {
 	
 	$scope.hasSignatures = function () {
 		return $scope.signatures.length > 0;
+	};
+	
+	$scope.getStatus = function (signature) {
+		if (!signature.clientSignature)
+			return 'Awaiting client signature';
+		else if (!signature.ownerSignature)
+			return 'Awaiting owner signature';
+		else
+			return 'Complete'
+	};
+	
+	$scope.getStatusClass = function (signature) {
+		if (!signature.clientSignature)
+			return 'text-danger';
+		else if (!signature.ownerSignature)
+			return '';
+		else
+			return 'text-success'
 	};
 
 	$scope.fromNow = function (date) {

@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('app').controller('ClientsCtrl', function ($scope, $http) {
 	$scope.clients = [];
 

@@ -4,18 +4,25 @@
 		<h2>{{signature.title}}</h2>
 		<p>{{signature.body}}</p>
 		
-		<div ng-hide="signature.clientSignature">
-			<signature-pad signature-pad="signaturePad"></signature-pad>
-			<button ng-click="submit()"  class="btn btn-success">Submit</button>
+		<uib-alert ng-show="!signature.clientSignature && isAuthenticated" type="warning" style="margin-top: 30px;">
+			Awaiting client signature
+		</uib-alert>
+		<div ng-show="!signature.clientSignature && !isAuthenticated">
+			<signature-pad signature-pad="clientPad"></signature-pad>
+			<button ng-click="submitClientSignature()"  class="btn btn-success">Submit</button>
 		</div>
 		<div ng-show="signature.clientSignature" style="margin-top: 30px;">
 			<h4>Client Signature</h4>
 			<img ng-src="{{signature.clientSignature}}"/>
 		</div>
 		
-		<uib-alert ng-show="signature.clientSignature && !signature.ownerSignature" type="warning" style="margin-top: 30px;">
+		<uib-alert ng-show="signature.clientSignature && !signature.ownerSignature && !isAuthenticated" type="warning" style="margin-top: 30px;">
 			Awaiting owner signature
 		</uib-alert>
+		<div ng-show="signature.clientSignature && !signature.ownerSignature && isAuthenticated">
+			<signature-pad signature-pad="ownerPad"></signature-pad>
+			<button ng-click="submitOwnerSignature()"  class="btn btn-success">Submit</button>
+		</div>
 		<div ng-show="signature.ownerSignature" style="margin-top: 30px;">
 			<h4>Owner Signature</h4>
 			<img ng-src="{{signature.ownerSignature}}"/>

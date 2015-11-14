@@ -1,9 +1,11 @@
 'use strict';
 
+/* global moment */
 angular.module('app').controller('signCtrl', function ($scope, $http, $stateParams, ngToast, $auth) {
 
 	$scope.signature = {};
-	$scope.signaturePad = {};
+	$scope.clientPad = {};
+	$scope.ownerPad = {};
 	$scope.isAuthenticated = $auth.isAuthenticated();
 
 	$http.get('/api/signatures/' + $stateParams.id).success(function (signature) {
@@ -12,15 +14,19 @@ angular.module('app').controller('signCtrl', function ($scope, $http, $statePara
 		ngToast.danger('Unable to load form!<br/>' + err.message);
 	});
 
-	$scope.submit = function () {
-		if (!$scope.signaturePad.isEmpty()) {
-			$scope.signature.clientSignature = $scope.signaturePad.toDataURL();
-			
-			$http.post('/api/sign/', $scope.signature).success(function () {
-				ngToast.success('Form submitted!');
-			}).error(function (err) {
-				ngToast.danger('Unable to submit form!<br/>' + err.message);
-			});
+	$scope.submitClientSignature = function () {
+		if (!$scope.clientPad.isEmpty()) {
+			$scope.signature.clientSignature = $scope.clientPad.toDataURL();
+			submit();
+		} else {
+			ngToast.danger('Signature is blank!');
+		}
+	};
+	
+	$scope.submitOwnerSignature = function () {
+		if (!$scope.ownerPad.isEmpty()) {
+			$scope.signature.ownerSignature = $scope.ownerPad.toDataURL();
+			submit();
 		} else {
 			ngToast.danger('Signature is blank!');
 		}
@@ -29,4 +35,12 @@ angular.module('app').controller('signCtrl', function ($scope, $http, $statePara
 	$scope.fromNow = function (date) {
 		return moment(date).fromNow();
 	};
+	
+	function submit() {
+		$http.post('/api/sign/', $scope.signature).success(function () {
+			ngToast.success('Form submitted!');
+		}).error(function (err) {
+			ngToast.danger('Unable to submit form!<br/>' + err.message);
+		});
+	}
 });

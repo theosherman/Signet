@@ -38,7 +38,7 @@
             <a class="navbar-brand" ui-sref="home">Signet</a>
           </div>
 
-          <div class="collapse navbar-collapse" collapse="navCollapsed">
+          <div class="collapse navbar-collapse" uib-collapse="navCollapsed">
 
             <ul ng-show="isAuthenticated()" class="nav navbar-nav">
               <li ui-sref-active="active"><a ui-sref="clients">Clients</a></li>
@@ -50,8 +50,8 @@
               <li ui-sref-active="active"><a ui-sref="login">Login</a></li>
             </ul>
             <ul ng-show="isAuthenticated() && showLogin()" class="nav navbar-nav navbar-right">
-              <li dropdown>
-                  <a href="#" dropdown-toggle>{{getName()}} <b class="caret"></b></a>
+              <li uib-dropdown>
+                  <a href="#" uib-dropdown-toggle>{{getName()}} <b class="caret"></b></a>
                   <ul class="dropdown-menu">
                         <li><a ui-sref="logout">Logout</a></li>
                   </ul>

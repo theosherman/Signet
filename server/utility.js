@@ -2,6 +2,7 @@
 
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
+var Promise = require('promise');
 
 var config = require('./config');
 
@@ -22,13 +23,23 @@ utility.denyAccess = function denyAccess(res) {
 };
 
 utility.sendEmail = function sendEmail(body, subject, to) {
-	var transporter = nodemailer.createTransport(smtpTransport(config.mail));
+	return new Promise(function (resolve, reject) {
+		var transporter = nodemailer.createTransport(smtpTransport(config.mail));
+		
+		console.log(config.mail);
 	
-	transporter.sendMail({
-		from: config.mail.email,
-		to: to,
-		subject: subject,
-		text: body
+		transporter.sendMail({
+			from: config.mail.email,
+			to: to,
+			subject: subject,
+			text: body
+		}, function (err, info) {
+			if (err) {
+				reject(err);
+			} else {
+				resolve(info);
+			}
+		});
 	});
 };
 

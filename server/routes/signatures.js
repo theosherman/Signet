@@ -38,7 +38,14 @@ app.post('/', auth, function (req, res) {
 	var newSignature = new Signature(req.body);
 
 	newSignature.save().then(function (signature) {
-		res.send(signature);
+		var promise = utility.sendEmail('Please sign this form.', 'Form signature requested', 'theo.a.sherman@gmail.com');
+			promise.then(function (info) {
+				console.log(info);
+				res.send(signature);
+			}).catch(function (err) {
+				console.log(err);
+				res.status(500).send({message: 'Error sending email notification to client.'});
+			});
 	}).error(function (err) {
 		utility.handleErrorResponse(res, err);
 	});

@@ -1,5 +1,6 @@
 'use strict';
 
+/* global moment */
 angular.module('app').controller('signaturesCtrl', function ($scope, $http) {
 	$scope.signatures = [];
 
@@ -19,7 +20,7 @@ angular.module('app').controller('signaturesCtrl', function ($scope, $http) {
 		else if (!signature.ownerSignature)
 			return 'Awaiting owner signature';
 		else
-			return 'Complete'
+			return 'Complete';
 	};
 	
 	$scope.getStatusClass = function (signature) {

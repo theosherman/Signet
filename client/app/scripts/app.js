@@ -54,7 +54,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $authProvider, ngToastP
   $authProvider.withCredentials = true;
   $authProvider.tokenRoot = null;
   $authProvider.cordova = false;
-  $authProvider.baseUrl = 'http://localhost:3000/api';
+  $authProvider.baseUrl = 'http://zeus:3000/api';
   $authProvider.loginUrl = '/auth/login';
   $authProvider.signupUrl = '/auth/signup';
   $authProvider.unlinkUrl = '/auth/unlink/';

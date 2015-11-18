@@ -19,6 +19,7 @@
     "morgan": "^1.6.1",
     "nodemailer": "^1.10.0",
     "nodemailer-smtp-transport": "^1.0.4",
+    "promise": "^7.0.4",
     "thinky": "^2.1.9"
   }
 }

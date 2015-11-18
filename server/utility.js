@@ -26,8 +26,6 @@ utility.sendEmail = function sendEmail(body, subject, to) {
 	return new Promise(function (resolve, reject) {
 		var transporter = nodemailer.createTransport(smtpTransport(config.mail));
 		
-		console.log(config.mail);
-	
 		transporter.sendMail({
 			from: config.mail.email,
 			to: to,

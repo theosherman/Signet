@@ -1,8 +1,8 @@
 <div class="row">
 	<div class="col-md-8 col-md-offset-2">
 		
-		<h2>{{signature.title}}</h2>
-		<p>{{signature.body}}</p>
+		<h2 ng-cloak>{{signature.title}}</h2>
+		<p ng-cloak>{{signature.body}}</p>
 		
 		<uib-alert ng-show="!signature.clientSignature && isAuthenticated" type="warning" style="margin-top: 30px;">
 			Awaiting client signature

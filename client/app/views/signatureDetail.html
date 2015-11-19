@@ -5,7 +5,7 @@
 			<th>Name</th>
 		</tr>
 		<tr ng-repeat="client in clients">
-			<td><a href ng-click="selectClient(client)">{{client.name}}</a></td>
+			<td><a href ng-click="selectClient(client)" ng-cloak>{{client.name}}</a></td>
 		</tr>
 	</table>
 </div>
@@ -17,23 +17,23 @@
 			<th>Title</th>
 		</tr>
 		<tr ng-repeat="form in forms">
-			<td><a href ng-click="selectForm(form)">{{form.title}}</a></td>
+			<td><a href ng-click="selectForm(form)" ng-cloak>{{form.title}}</a></td>
 		</tr>
 	</table>
 </div>
 
-<h2 ng-show="signature.name">
+<h2 ng-show="signature.name" ng-cloak>
 	{{signature.name}}
-	<button ng-click="hideClients = !hideClients" ng-hide="isPersisted()" class="btn btn-sm" style="margin-left: 10px;">...</button>
+	<button ng-click="hideClients = !hideClients" ng-hide="isPersisted()" ng-cloak class="btn btn-sm" style="margin-left: 10px;">...</button>
 </h2>
 <h3 ng-show="signature.name && signature.title">will sign</h3>
-<h2 ng-show="signature.title">
+<h2 ng-show="signature.title" ng-cloak>
 	{{signature.title}}
 	<button ng-click="hideForms = !hideForms" ng-hide="isPersisted()" class="btn btn-sm" style="margin-left: 10px;">...</button>
 </h2>
 
 <div ng-show="isPersisted()">
-	<a ui-sref="sign({id: id})">http://localhost:3000/#/sign/{{id}}</a>
+	<a ui-sref="sign({id: id})" ng-cloak>http://localhost:3000/#/sign/{{id}}</a>
 </div>
 
 <button ng-click="save()" ng-show="selectedClient && selectedForm" class="btn btn-success">Save</button>

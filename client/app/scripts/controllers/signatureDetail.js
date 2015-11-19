@@ -65,7 +65,7 @@ angular.module('app').controller('signatureDetailCtrl', function ($scope, $state
 			$state.go('signatures');
 			ngToast.success('Saved signature!');
 		}).error(function (err) {
-			ngToast.danger('Unable to save signature...<br/>' + err.message);
+			ngToast.danger('Error saving signature...<br/>' + err.message);
 		});
 	};
 	
@@ -75,8 +75,8 @@ angular.module('app').controller('signatureDetailCtrl', function ($scope, $state
 			$scope.refreshSignatures();
 			ngToast.success('Deleted!');
 		}).error(function (err) {
-			ngToast.danger('Unable to delete signature...<br/>' + err.message);
-		})
+			ngToast.danger('Error deleting signature...<br/>' + err.message);
+		});
 	};
 	
 	$scope.notify = function () {

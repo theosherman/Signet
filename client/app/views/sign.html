@@ -21,9 +21,10 @@
 		</uib-alert>
 		<div ng-show="signature.clientSignature && !signature.ownerSignature && isAuthenticated">
 			<signature-pad signature-pad="ownerPad"></signature-pad>
-			<button ng-click="submitOwnerSignature()"  class="btn btn-success">Submit</button>
+			<button ng-click="submitOwnerSignature()"  class="btn btn-success">Submit Owner Signature</button>
+			<button ng-click="rejectClientSignature()"  class="btn btn-warning">Reject Client Signature</button>
 		</div>
-		<div ng-show="signature.ownerSignature" style="margin-top: 30px;">
+		<div ng-show="signature.ownerSignature" style="margin-top: 30px;">  
 			<h4>Owner Signature</h4>
 			<img ng-src="{{signature.ownerSignature}}"/>
 		</div>

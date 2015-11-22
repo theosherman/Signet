@@ -29,7 +29,7 @@ angular.module('app').controller('signCtrl', function ($scope, $http, $statePara
 	};
 	
 	$scope.rejectClientSignature = function () {
-		$http.post('/api/sign/reject/' + $scope.signature.id).success(function () {
+		$http.post('/api/signatures/reject/' + $scope.signature.id).success(function () {
 			refreshSignature($scope.signature.id);
 		});
 	};

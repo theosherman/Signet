@@ -22,18 +22,4 @@ app.post('/', function (req, res) {
 	});
 });
 
-app.post('/reject/:id', function(req, res) {
-	Signature.get(req.params.id).run().then(function (signature) {
-		if (signature.clientSignature) {
-			delete signature.clientSignature;
-		}
-		
-		signature.save().then(function () {
-			res.status(200).end();
-		}).error(function (err) {
-			utility.handleErrorResponse(res, err);
-		});
-	});
-});
-
 module.exports = app;

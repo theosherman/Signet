@@ -50,6 +50,20 @@ app.post('/', auth, function (req, res) {
 	});
 });
 
+app.post('/reject/:id', auth, function(req, res) {
+	Signature.get(req.params.id).run().then(function (signature) {
+		if (signature.clientSignature) {
+			delete signature.clientSignature;
+		}
+		
+		signature.save().then(function () {
+			res.status(200).end();
+		}).error(function (err) {
+			utility.handleErrorResponse(res, err);
+		});
+	});
+});
+
 app.put('/', auth, function (req, res) {
 	Signature.get(req.body.id).run().then(function (signature) {
 		signature.merge(req.body).save().then(function (signature) {

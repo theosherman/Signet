@@ -57,7 +57,15 @@ app.post('/reject/:id', auth, function(req, res) {
 		}
 		
 		signature.save().then(function () {
-			res.status(200).end();
+			getSignature(signature.id).then(function (signature) {
+				utility.sendEmail('Please re-sign this form @ http://localhost:3000/#/sign/' + signature.id, 'Form signature requested', signature.email).then(function (info) {
+					console.log(info);
+					res.status(200).end();
+				}).catch(function (err) {
+					console.log(err);
+					res.status(500).send({ message: 'Error sending email notification to client.' });
+				});
+			});
 		}).error(function (err) {
 			utility.handleErrorResponse(res, err);
 		});

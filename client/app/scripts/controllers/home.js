@@ -1,13 +1,9 @@
 'use strict';
 
-angular.module('app').controller('HomeCtrl', function ($scope, $auth, ngToast) {
+angular.module('app').controller('HomeCtrl', function ($scope, $http, ngToast) {
+  $scope.stats = {};
   
-  $scope.getName = function() {
-    return $auth.getPayload().name;
-  };
-  
-  $scope.pop = function() {
-    ngToast.info({content:"'Allo, " + $auth.getPayload().name});
-  };
-  
+  $http.get('api/signatures/stats').success(function (stats) {
+    $scope.stats = stats;
+  });
 });

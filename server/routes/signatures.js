@@ -20,6 +20,30 @@ app.get('/', auth, function (req, res) {
 		});
 });
 
+app.get('/stats', auth, function (req, res) {
+	
+	//database request for stats.
+	
+	var stats = {
+		awaitingClientSignatures: [
+			{ name: 'John' },
+			{ name: 'David' }
+		],
+		
+		awaitingOwnerSignatures: [
+			{ name: 'Tom' },
+			{ name: 'Nelson' }
+		],
+		
+		completedSignatures: [
+			{ name: 'Zac' },
+			{ name: 'Scott' }
+		]
+	};
+	
+	res.send(stats);
+});
+
 app.get('/:id', function (req, res) {
 	getSignature(req.params.id).then(function (signature) {
 		res.send(signature);

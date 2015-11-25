@@ -9,25 +9,7 @@
   <div class="row">
     
     <div class="col-md-4">
-      <div class="panel panel-success">
-        <div class="panel-heading">Completed Signatures</div>
-        <div class="panel-body">
-          <table class="table">
-            <tr>
-              <th>Client</th>
-              <th>Date</th>
-            </tr>
-            <tr ng-repeat="s in stats.completedSignatures">
-              <td>{{s.name}}</td>
-              <td>{{s.date}}</td>
-            </tr>
-          </table>
-        </div>
-      </div>
-    </div>
-    
-    <div class="col-md-4">
-      <div class="panel panel-default">
+      <div class="panel panel-danger">
         <div class="panel-heading">Awaiting Client Signature</div>
         <div class="panel-body">
           <table class="table">
@@ -35,9 +17,9 @@
               <th>Client</th>
               <th>Date</th>
             </tr>
-            <tr ng-repeat="s in stats.awaitingClientSignatures">
+            <tr ng-repeat="s in awaitingClientSignatures">
               <td>{{s.name}}</td>
-              <td>{{s.date}}</td>
+              <td>{{fromNow(s.createdAt)}}</td>
             </tr>
           </table>
         </div>
@@ -53,9 +35,27 @@
               <th>Client</th>
               <th>Date</th>
             </tr>
-            <tr ng-repeat="s in stats.awaitingOwnerSignatures">
+            <tr ng-repeat="s in awaitingOwnerSignatures">
               <td>{{s.name}}</td>
-              <td>{{s.date}}</td>
+              <td>{{fromNow(s.createdAt)}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-4">
+      <div class="panel panel-success">
+        <div class="panel-heading">Completed Signatures</div>
+        <div class="panel-body">
+          <table class="table">
+            <tr>
+              <th>Client</th>
+              <th>Date</th>
+            </tr>
+            <tr ng-repeat="s in completedSignatures">
+              <td>{{s.name}}</td>
+              <td>{{fromNow(s.createdAt)}}</td>
             </tr>
           </table>
         </div>

@@ -20,28 +20,50 @@ app.get('/', auth, function (req, res) {
 		});
 });
 
-app.get('/stats', auth, function (req, res) {
-	
-	//database request for stats.
-	
-	var stats = {
-		awaitingClientSignatures: [
-			{ name: 'John' },
-			{ name: 'David' }
-		],
-		
-		awaitingOwnerSignatures: [
-			{ name: 'Tom' },
-			{ name: 'Nelson' }
-		],
-		
-		completedSignatures: [
-			{ name: 'Zac' },
-			{ name: 'Scott' }
-		]
-	};
-	
-	res.send(stats);
+app.get('/awaitingClient', auth, function (req, res) {
+	r.table('Signature')
+		.filter(r.row.hasFields('clientSignature').not())
+		.eqJoin('clientId', r.table('Client'))
+		.without({ 'right': { 'id': true, 'createdAt': true }}).zip()
+		.pluck('id', 'name', 'createdAt')
+		.orderBy(r.desc('createdAt'))
+  		.limit(10)
+		.run().then(function (signatures) {
+			res.send(signatures);
+		}).error(function (err) {
+			utility.handleErrorResponse(res, err);
+		});
+});
+
+app.get('/awaitingOwner', auth, function (req, res) {
+	r.table('Signature')
+		.filter(r.row.hasFields('clientSignature'))
+		.filter(r.row.hasFields('ownerSignature').not())
+		.eqJoin('clientId', r.table('Client'))
+		.without({ 'right': { 'id': true, 'createdAt': true }}).zip()
+		.pluck('id', 'name', 'createdAt')
+		.orderBy(r.desc('createdAt'))
+  		.limit(10)
+		.run().then(function (signatures) {
+			res.send(signatures);
+		}).error(function (err) {
+			utility.handleErrorResponse(res, err);
+		});
+});
+
+app.get('/completed', auth, function (req, res) {
+	r.table('Signature')
+		.filter(r.row.hasFields('clientSignature', 'ownerSignature'))
+		.eqJoin('clientId', r.table('Client'))
+		.without({ 'right': { 'id': true, 'createdAt': true }}).zip()
+		.pluck('id', 'name', 'createdAt')
+		.orderBy(r.desc('createdAt'))
+  		.limit(10)
+		.run().then(function (signatures) {
+			res.send(signatures);
+		}).error(function (err) {
+			utility.handleErrorResponse(res, err);
+		});
 });
 
 app.get('/:id', function (req, res) {
